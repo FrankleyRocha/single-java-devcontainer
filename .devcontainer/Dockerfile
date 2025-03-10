@@ -5,18 +5,15 @@ RUN apt update
 
 #pacotes essenciais
 RUN apt install -y \
-    vim \
     curl \
     git \
     sudo \
     zip unzip
 
-ARG USERNAME=ubuntu
+RUN echo ubuntu ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/ubuntu \
+    && chmod 0440 /etc/sudoers.d/ubuntu
 
-RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
-    && chmod 0440 /etc/sudoers.d/$USERNAME
-
-USER $USERNAME
+USER ubuntu
 
 RUN curl -s "https://get.sdkman.io" | bash
 
